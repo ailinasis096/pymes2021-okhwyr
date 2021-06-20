@@ -31,6 +31,8 @@ import { DatePickerAdapterISO } from './shared/DatePickerAdapterISO';
 import { DatePickerParserFormatter } from './shared/DatePickerParserFormater';
 import { DatePickerSpanish } from './shared/DatePickerSpanish';
 import { FormFocusDirective } from './shared/form-focus.directive';
+import { EmpresasService } from './services/empresas.service';
+import { EmpresasComponent } from './components/empresas/empresas.component';
 
 @NgModule({
   imports: [
@@ -56,6 +58,10 @@ import { FormFocusDirective } from './shared/form-focus.directive';
               m => m.ClientesModule
             )
         },
+        {
+          path: 'empresas',
+          component: EmpresasComponent
+        },
         { path: '**', redirectTo: '/inicio', pathMatch: 'full' }
       ],
       {
@@ -80,7 +86,8 @@ import { FormFocusDirective } from './shared/form-focus.directive';
 
     ClientesInfoComponent,
     VentasComponent,
-    VentasConsultasComponent
+    VentasConsultasComponent,
+    EmpresasComponent
     //FormFocusDirective
   ],
   entryComponents: [ModalDialogComponent],

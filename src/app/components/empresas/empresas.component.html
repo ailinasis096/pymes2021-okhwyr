@@ -1,0 +1,27 @@
+<div class='tituloPagina'>
+  {{Titulo}}
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <table class="table table-hover table-sm table-bordered table-striped" *ngIf="AccionABMC == 'L'">
+        <thead>
+          <tr>
+            <th class=" text-center">Id Empresas</th>
+            <th class="text-center">Razon Social</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of Items">
+            <td>{{item.IdEmpresa}}</td>
+            <td>{{item.RazonSocial | uppercase}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button>Agregar</button>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>
