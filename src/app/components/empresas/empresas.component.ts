@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ArticuloFamilia } from '../../models/articulo-familia';
 import { Empresas } from '../../models/empresas';
 import { EmpresasService } from '../../services/empresas.service';
 
@@ -13,7 +12,8 @@ export class EmpresasComponent implements OnInit {
   Titulo = 'Empresas';
   TituloAccionABMC = {
     A: '(Agregar)',
-    L: '(Listado)'
+    L: '(Listado)',
+    C: '(Cancelar)'
   };
   AccionABMC = 'L';
 
@@ -23,6 +23,12 @@ export class EmpresasComponent implements OnInit {
   FormRegistro: FormGroup;
   submitted = false;
   modalDialogService: any;
+  Mensajes = {
+    SD: ' No se encontraron registros...',
+    RD: ' Revisar los datos ingresados...'
+  };
+  RegistrosTotal: number;
+  Pagina = 1;
 
   constructor(
     private empresasService: EmpresasService, //private articulosFamiliasService:  MockArticulosFamiliasService
@@ -52,12 +58,18 @@ export class EmpresasComponent implements OnInit {
     });
     this.GetEmpresas();
   }
+
+  // Buscar segun los filtros, establecidos en FormRegistro
+  Buscar() {
+    this.empresasService.get(this.Pagina).subscribe((res: any) => {
+      this.Items = res.Items;
+      this.RegistrosTotal = res.RegistrosTotal;
+    });
+  }
   Agregar() {
     this.AccionABMC = 'A';
     this.FormRegistro.reset({ Activo: true, IdEmpresa: 0 });
     this.submitted = false;
-    //this.FormRegistro.markAsPristine();  // incluido en el reset
-    //this.FormRegistro.markAsUntouched(); // incluido en el reset
   }
   Volver() {
     this.AccionABMC = 'L';
@@ -92,7 +104,7 @@ export class EmpresasComponent implements OnInit {
   }
 
   GetEmpresas() {
-    this.empresasService.get().subscribe((res: Empresas[]) => {
+    this.empresasService.get(this.Pagina).subscribe((res: Empresas[]) => {
       this.Items = res;
     });
   }

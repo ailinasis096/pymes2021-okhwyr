@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Empresas } from '../models/empresas';
 
@@ -13,8 +13,11 @@ export class EmpresasService {
     //this.resourceUrl =  "https://localhost:44328/api/empresas" + "/";
   }
 
-  get() {
-    return this.httpClient.get(this.resourceUrl);
+  get(Pagina: number) {
+    let params = new HttpParams();
+    params = params.append('Pagina', Pagina.toString());
+
+    return this.httpClient.get(this.resourceUrl, { params: params });
   }
   // mismo metodo tipado
   //  get():Observable<ArticuloFamilia[]> {
